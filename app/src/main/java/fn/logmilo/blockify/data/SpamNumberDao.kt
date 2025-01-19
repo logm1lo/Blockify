@@ -22,4 +22,7 @@ interface SpamNumberDao {
 
     @Query("UPDATE spam_numbers SET reportCount = reportCount + 1, lastUpdated = :timestamp WHERE phoneNumber = :number")
     suspend fun incrementReportCount(number: String, timestamp: Long = System.currentTimeMillis())
+
+    @Query("SELECT MAX(lastUpdated) FROM spam_numbers")
+    suspend fun getLastUpdateTime(): Long?
 }
